@@ -2,10 +2,11 @@ import { StyledTextField } from './styles'
 
 import { Input, InputProps } from "../../atoms/input";
 import { Label, LabelProps } from "../../atoms/label";
-import { ErrorMessage, errorMessageProps } from '../../atoms/errorMessage';
+import { ErrorMessage } from '../../atoms/errorMessage';
 
-interface TextFieldProps extends LabelProps, InputProps, errorMessageProps {
-    status?: 'error' | 'default'
+interface TextFieldProps extends LabelProps, InputProps {
+    status?: 'error' | 'default';
+    errortext?: string;
 }
 
 export function TextField({ ...props }: TextFieldProps){
@@ -17,9 +18,9 @@ export function TextField({ ...props }: TextFieldProps){
             <Input
                 placeholder={props.placeholder}
                 value={props.value}
-                setValue={props.setValue}
+                { ...props }
             />
-            { props.status === 'error' && 
+            { props.status === 'error' && props.errortext && 
                 <ErrorMessage
                     errortext={props.errortext}
                 />
