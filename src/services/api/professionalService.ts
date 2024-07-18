@@ -5,7 +5,7 @@ export async function createProfessional({ ...props }: ProfessionalProps){
     try{
         const response = await api.post('/professional/create', props);
         return response
-    }catch(e) { 
+    }catch(e: any) { 
         return e;
     }
 }
