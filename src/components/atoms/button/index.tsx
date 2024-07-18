@@ -3,7 +3,7 @@ import { StyledButton } from "./styles";
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     loading?: boolean;
     variant?: 'contained' | 'text' | 'outlined' | 'link';
-    color?: 'success' | 'error' | 'primary'
+    color?: "success" | "error" | "primary" | 'light-gray'  
 }
 
 export function Button({ children, ...props }: ButtonProps){

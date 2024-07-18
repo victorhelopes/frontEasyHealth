@@ -6,6 +6,11 @@ import { GetColor } from "../../../utils/getColor";
 export const StyledButton = styled.button<ButtonProps>`
     cursor: pointer;
 
+    text-decoration:  ${({variant}) =>{ 
+        if(variant === 'link') return 'underline'
+        return 'none'
+    }};
+
     background-color: ${({variant, color, loading}) => {
         if(loading){
             return 'grey'
@@ -34,7 +39,7 @@ export const StyledButton = styled.button<ButtonProps>`
     
     padding: 0.5em;
     width: ${({variant}) => {
-        if(variant === 'text') return 'fit-content' 
+        if(variant === 'text' || variant === 'link') return 'fit-content' 
         else return '100%'
     }};
 

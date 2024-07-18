@@ -3,10 +3,8 @@ import { TextField } from "../../components/molecules/textField";
 import { Background, Form, Modal, Title } from "./styles";
 import { Button } from "../../components/atoms/button";
 import { useNavigate } from "react-router-dom";
-import { ProfessionalProps } from "../../types/professional";
-import { createProfessional } from "../../services/api/professionalService";
-import { ErrorMessage } from "../../components/atoms/errorMessage";
-import ValidadeEmail from "../../utils/validateEmail";
+import { login } from "../../services/api/professionalService";
+import { setToken } from "../../services/helpers/tokenHelper";
 
 interface FormErrors {
     name?: string;
@@ -15,38 +13,24 @@ interface FormErrors {
     password?: string;
   }
 
-export function CreateProfessional(){
+export function Login(){
     const navigate = useNavigate();
 
     const [email, setEmail] = useState<string>('');
-    const [name, setName] = useState<string>('');
-    const [lastName, setLastName] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [formError, setFormError] = useState<boolean>(false);
     const [errors, setErrors] = useState<FormErrors>({});
 
 
     function validate(){
         let errors:FormErrors = {}
-        if (!name) {
-          errors.name = 'Nome é obrigatório!';
-        }
-        
-        if (!lastName) {
-          errors.lastName = 'Sobrenome é obrigatório!';
-        }
       
         if (!email) {
           errors.email = 'Email é obrigatório!';
-        } else if (ValidadeEmail(email)) {
-          errors.email = 'Email inválido';
         }
       
         if (!password) {
           errors.password = 'Password é obrigatório!';
-        } else if (password.length < 6){
-          errors.password = 'Senha deve possuir pelo menos 6 caracteres'
         }
       
         return errors;
@@ -54,23 +38,32 @@ export function CreateProfessional(){
 
     async function submit(e: FormEvent){
         setErrors({})
-        setFormError(false);
         setIsLoading(true)
         const validationErrors = validate();
         e.preventDefault();
 
         if (Object.keys(validationErrors).length === 0) {
-            const body: ProfessionalProps = {
-                name: name,
-                lastName: lastName,
+            const body = {
                 email: email,
                 password: password
             }
-            const response = await createProfessional(body)
+            const response = await login(body)
+            console.log(response?.status === 200, response.data.token)
             if(response?.status === 200){
-                navigate('/')
+                setToken(response.data.token)
+            } else {
+                if(response?.response.data === 'Invalid password'){
+                    setErrors({
+                        password: 'Senha inválida'
+                    })
+                }
+                
+                if(response?.response.data === 'User not found'){
+                    setErrors({
+                        email: 'Email inválido'
+                    })
+                }
             }
-            setFormError(true)
         } else {
             setErrors(validationErrors);
         }
@@ -80,37 +73,8 @@ export function CreateProfessional(){
     return(
         <Background>
             <Modal>
-                <Button 
-                    variant="text" 
-                    color="primary"
-                    onClick={()=>{
-                        navigate('/')
-                    }}
-                >
-                    Voltar
-                </Button>
-                <Title>Cadastro</Title>
+                <Title>Login</Title>
                 <Form onSubmit={submit}>
-                    <TextField
-                        labelText="Name"
-                        placeholder="Name"
-                        value={name}
-                        onChange={(value)=>{
-                            setName(value.target.value)
-                        }}
-                        status={errors.name ? 'error' : 'default'}
-                        errortext={errors.name}
-                    />
-                    <TextField
-                        labelText="Sobrenome"
-                        placeholder="Sobrenome"
-                        value={lastName}
-                        onChange={(value)=>{
-                            setLastName(value.target.value)
-                        }}
-                        status={errors.lastName ? 'error' : 'default'}
-                        errortext={errors.lastName}
-                    />
                     <TextField
                         labelText="Email"
                         placeholder="Email"
@@ -142,8 +106,16 @@ export function CreateProfessional(){
                     >
                         Confirmar
                     </Button>
-                    {formError && <ErrorMessage errortext="Algo deu errado tente novamente mais tarde!"/>}
                 </Form>
+                <Button 
+                    variant="link" 
+                    color="light-gray"
+                    onClick={()=>{
+                        navigate('/createAccount')
+                    }}
+                >
+                    Novo por aqui? Realize o cadastro
+                </Button>
             </Modal>
         </Background>
     )
