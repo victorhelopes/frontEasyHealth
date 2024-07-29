@@ -1,14 +1,38 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 
 import { CreateProfessional } from '../pages/createProfessional';
 import { Login } from '../pages/login';
+import { useEffect, useState } from 'react';
+import { getProfessionalInfo } from '../services/api/professionalService';
 
 export default function PagesRoutes(){
+    const navigate = useNavigate();
+    const [signed, setSigned] = useState(false);
+
+    useEffect(()=>{
+        async function getToken(){
+            const response = await getProfessionalInfo();
+            if(response.status === 200){
+                setSigned(true)
+            }else{
+                navigate('/')
+            }
+        }
+        getToken();
+    },[navigate])
+
     return(
         <Routes>
             <Route path='/'>
-                <Route  path = "/" element={<Login/>}/>
-                <Route  path = "/createAccount" element={<CreateProfessional/>}/>
+                {!signed? 
+                    <>
+                        <Route  path = "/" element={<Login/>}/>
+                        <Route  path = "/createAccount" element={<CreateProfessional/>}/>
+                    </>
+                    :
+                    <>
+                    </>
+                }
             </Route>
         </Routes>
     );

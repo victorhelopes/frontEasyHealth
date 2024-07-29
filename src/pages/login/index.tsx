@@ -48,9 +48,9 @@ export function Login(){
                 password: password
             }
             const response = await login(body)
-            console.log(response?.status === 200, response.data.token)
             if(response?.status === 200){
                 setToken(response.data.token)
+                window.location.reload();
             } else {
                 if(response?.response.data === 'Invalid password'){
                     setErrors({

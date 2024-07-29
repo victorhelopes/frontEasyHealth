@@ -32,21 +32,25 @@ export const StyledButton = styled.button<ButtonProps>`
         if(variant === 'outlined') return `1px solid ${GetColor(color)}`;
         else return 'none'
     }};
-    border-radius: 0.5em;
+    border-radius: 0.5rem;
 
-    font-size: 1em;
+    font-size: 1rem;
     font-weight: bold;
     
-    padding: 0.5em;
+    padding: 0.5rem;
     width: ${({variant}) => {
         if(variant === 'text' || variant === 'link') return 'fit-content' 
         else return '100%'
     }};
 
+    span {
+        font-size: 0.9rem
+    }
+
     ${
         ({loading}) =>
         loading && `
-        span { animation: spin 2s linear infinite;}
+        span { animation: spin 2s linear infinite}
         @keyframes spin {
             from {
                 transform:rotate(0deg);
