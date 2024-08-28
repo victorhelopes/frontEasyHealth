@@ -1,12 +1,13 @@
 import { FormEvent, useState } from "react";
 import { TextField } from "../../components/molecules/textField";
-import { Background, Form, Modal, Title } from "./styles";
+import { Background, Form, Modal } from "./styles";
 import { Button } from "../../components/atoms/button";
 import { useNavigate } from "react-router-dom";
 import { ProfessionalProps } from "../../types/professional";
 import { createProfessional } from "../../services/api/professionalService";
 import { ErrorMessage } from "../../components/atoms/errorMessage";
 import ValidadeEmail from "../../utils/validateEmail";
+import { Title } from "../../components/atoms/title";
 
 interface FormErrors {
     name?: string;
@@ -44,7 +45,7 @@ export function CreateProfessional(){
         }
       
         if (!password) {
-          errors.password = 'Password é obrigatório!';
+          errors.password = 'Senha é obrigatório!';
         } else if (password.length < 6){
           errors.password = 'Senha deve possuir pelo menos 6 caracteres'
         }
@@ -89,7 +90,7 @@ export function CreateProfessional(){
                 >
                     Voltar
                 </Button>
-                <Title>Cadastro</Title>
+                <Title text="Cadastro"/>
                 <Form onSubmit={submit}>
                     <TextField
                         labelText="Name"
