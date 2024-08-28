@@ -4,6 +4,7 @@ import { CreateProfessional } from '../pages/createProfessional';
 import { Login } from '../pages/login';
 import { useEffect, useState } from 'react';
 import { getProfessionalInfo } from '../services/api/professionalService';
+import { CreatePatient } from '../pages/createPatient';
 
 export default function PagesRoutes(){
     const navigate = useNavigate();
@@ -26,11 +27,12 @@ export default function PagesRoutes(){
             <Route path='/'>
                 {!signed? 
                     <>
-                        <Route  path = "/" element={<Login/>}/>
-                        <Route  path = "/createAccount" element={<CreateProfessional/>}/>
+                        <Route path = "/" element={<Login/>}/>
+                        <Route path = "/createAccount" element={<CreateProfessional/>}/>
                     </>
                     :
                     <>
+                        <Route path='/createPatient' element={<CreatePatient/>}/>
                     </>
                 }
             </Route>
