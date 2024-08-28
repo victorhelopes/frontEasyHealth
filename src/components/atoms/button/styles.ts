@@ -37,9 +37,9 @@ export const StyledButton = styled.button<ButtonProps>`
     font-size: 1rem;
     font-weight: bold;
     
-    padding: 0.5rem;
+    padding: 0.5rem 1rem;
     width: ${({variant}) => {
-        if(variant === 'text' || variant === 'link') return 'fit-content' 
+        if(variant === 'text' || variant === 'link') return 'fit-content'
         else return '100%'
     }};
 
