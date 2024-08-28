@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 
 
 export const GlobalStyles = createGlobalStyle`
@@ -7,6 +7,7 @@ export const GlobalStyles = createGlobalStyle`
         --primary-light-color: #E0E6FF;
 
         --light-gray-color: #C6C6C6;
+        --gray-color: #303030;
 
         --success-color: #04BB00;
         --error-color: #FF0000;
@@ -23,4 +24,14 @@ export const GlobalStyles = createGlobalStyle`
     * {
         box-sizing: border-box;
     }
+`;
+
+export const Container = styled.main`
+    padding: 1rem;
+`;
+
+export const Row = styled.div`
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
 `;
