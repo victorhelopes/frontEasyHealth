@@ -4,6 +4,7 @@ import { StepProps } from ".";
 export const StepWrapper = styled.div<{status: StepProps['status']}>`
     display: flex;
     align-items: center;
+    cursor: pointer;
 
     p{
         font-weight: ${({status})=> {
@@ -15,9 +16,9 @@ export const StepWrapper = styled.div<{status: StepProps['status']}>`
 `;
 
 export const Circle = styled.div<{status: StepProps['status']}>`
-    width: 1.5em;
-    height: 1.5em;
-    margin-right: 0.5em;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.5rem;
     
     background: ${({status})=> {
             if(status === 'complete') return 'var(--primary-color)'
