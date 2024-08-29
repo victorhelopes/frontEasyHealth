@@ -3,10 +3,14 @@ import { Stepper } from "../../components/molecules/stepper";
 import { TextField } from "../../components/molecules/textField";
 import { SectionHeader } from "../../components/molecules/sectionHeader";
 import { Button } from "../../components/atoms/button";
+import { Popup } from "../../components/molecules/popup";
+
 import { Container } from "../../styles/globalStyles";
+
 import { PatientProps } from "../../types/patient";
 
 import { BottomForm, Section, Form } from "./styles";
+
 import { getDifferenceYears } from "../../utils/getDifferenceYears";
 import { createPatient } from "../../services/api/patientService";
 import {
@@ -28,6 +32,7 @@ export function CreatePatient() {
     responsibles: [],
   });
   const [needResponsible, setNeedResponsible] = useState(false);
+  const [popupIsOpen, setPopupIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState(0);
   const [errors, setErrors] = useState<FormPeronsalDataErrors>({});
@@ -70,14 +75,15 @@ export function CreatePatient() {
           gender: "M",
           birthDate: "",
           responsibles: [],
-        })
-        setStep(0)
+        });
+        setStep(0);
       }
     } else {
-      setStep(0)
+      setStep(0);
       setErrors(validationErrors);
     }
     setIsLoading(false);
+    setPopupIsOpen(true);
   }
 
   useEffect(() => {
@@ -119,6 +125,15 @@ export function CreatePatient() {
 
   return (
     <Container>
+      <Popup
+        title="Paciente cadastrado com sucesso"
+        text="Paciente foi regristrado e aparecerá na sua lista de pacientes"
+        type="sucess"
+        isOpen={popupIsOpen}
+        close={() => {
+          setPopupIsOpen(false);
+        }}
+      />
       <Stepper currentStep={step} stepsLabels={stepsLabel} setStep={setStep} />
 
       <Form onSubmit={submit}>
