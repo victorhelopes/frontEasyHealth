@@ -38,10 +38,12 @@ export const StyledButton = styled.button<ButtonProps>`
     font-weight: bold;
     
     padding: 0.5rem 1rem;
-    width: ${({variant}) => {
-        if(variant === 'text' || variant === 'link') return 'fit-content'
+    width: ${({variant, width}) => {
+        if(variant === 'text' || variant === 'link' || width === 'fit-content') return 'fit-content'
         else return '100%'
     }};
+
+    height: fit-content;
 
     span {
         font-size: 0.9rem
