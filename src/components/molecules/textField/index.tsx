@@ -4,14 +4,15 @@ import { Input, InputProps } from "../../atoms/input";
 import { Label, LabelProps } from "../../atoms/label";
 import { ErrorMessage } from '../../atoms/errorMessage';
 
-interface TextFieldProps extends LabelProps, InputProps {
+export interface TextFieldProps extends LabelProps, InputProps {
     status?: 'error' | 'default';
     errortext?: string;
+    maxWidth?: string;
 }
 
 export function TextField({ ...props }: TextFieldProps){
     return(
-        <StyledTextField>
+        <StyledTextField { ...props} >
             <Label 
                 labelText={props.labelText}
             />
