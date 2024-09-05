@@ -1,4 +1,5 @@
 import styled, { createGlobalStyle } from 'styled-components'
+import { RowProps } from '../types/row';
 
 
 export const GlobalStyles = createGlobalStyle`
@@ -30,8 +31,19 @@ export const Container = styled.main`
     padding: 1rem;
 `;
 
-export const Row = styled.div`
+export const Row = styled.div<RowProps>`
     display: flex;
     gap: 1rem;
     margin-bottom: 1rem;
+    align-items: ${({alingItems})=> {
+        if(alingItems)
+            return alingItems
+        return 'center' 
+    }};
+    
+    justify-content: ${({justifyContent})=> {
+        if(justifyContent)
+            return justifyContent
+        return 'center' 
+    }};
 `;
