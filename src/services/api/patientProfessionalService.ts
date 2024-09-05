@@ -1,8 +1,8 @@
 import api from "..";
 
-export async function createPatientProfessionalRelation(id: string){
+export async function getPatients(){
     try{
-        const response = await api.post('/patientProfessional', {id: id});
+        const response = await api.get('/patientProfessional/getPatients');
         return response
     }catch(e: any) { 
         return e;

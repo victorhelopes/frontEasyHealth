@@ -17,10 +17,12 @@ import {
   FormPeronsalDataErrors,
   PeronsalDataForm,
 } from "../../components/templates/personalDataForm";
+import { useNavigate } from "react-router-dom";
 
 const AGE_LIMIT_NEED_RESPONSIBLE = 12;
 
 export function CreatePatient() {
+  const navigate = useNavigate();
   const [patient, setPatient] = useState<PatientProps>({
     name: "",
     lastName: "",
@@ -177,6 +179,9 @@ export function CreatePatient() {
             color="error"
             type="button"
             loading={isLoading}
+            onClick={()=>{
+              navigate('/')
+            }}
           >
             Cancelar
           </Button>

@@ -1,4 +1,5 @@
 export interface PatientProps {
+    _id?: string,
     cpf: string,
 	name: string,
 	lastName: string,

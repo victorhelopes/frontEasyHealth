@@ -5,6 +5,7 @@ import { Login } from '../pages/login';
 import { useEffect, useState } from 'react';
 import { getProfessionalInfo } from '../services/api/professionalService';
 import { CreatePatient } from '../pages/createPatient';
+import { Home } from '../pages/home';
 
 export default function PagesRoutes(){
     const navigate = useNavigate();
@@ -32,6 +33,7 @@ export default function PagesRoutes(){
                     </>
                     :
                     <>
+                        <Route path='/' element={<Home/>}/>
                         <Route path='/createPatient' element={<CreatePatient/>}/>
                     </>
                 }
